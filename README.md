@@ -1,5 +1,5 @@
 # Rocket-Test
-Ground Control Software for Rocket : Plugins
+Ground Control Software for Rocket
 <br>
 Customizable mission control & telemetry monitoring systems.
 <br>
