@@ -8,6 +8,7 @@ Steps to run OpenMCT :
 
 ```
 git clone https://github.com/karanpreet8082/Roco-Poco.git
+cd openmct
 npm install
 npm start
 ```
