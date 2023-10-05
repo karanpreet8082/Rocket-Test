@@ -46,6 +46,8 @@ define([
   './ui/components/components',
   './dictionary/aircraftPlugin',
   './dictionary/plugin2',
+  './dictionary/historical-telemetry-plugin',
+  './dictionary/realtime-telemetry-plugin',
   'vue'
 ], function (
   EventEmitter,
@@ -73,6 +75,8 @@ define([
   components,
   AircraftPlugin,
   DictionaryPlugin2,
+  HistoricalTelemetryPlugin,
+  RealtimeTelemetryPlugin,
   Vue
 ) {
   /**
@@ -286,6 +290,8 @@ define([
     this.install(ExportAsJSONAction.default());
     this.install(ImportFromJSONAction.default());
     this.install(AircraftPlugin());
+    this.install(HistoricalTelemetryPlugin( 'Aircraft_42.telemetry', '/aircraft_4242History', 'localhost' ));
+    this.install(RealtimeTelemetryPlugin('Aircraft_42.telemetry', '/aircraft_4242Realtime', 'localhost'));
     this.install(DictionaryPlugin2.default());
     this.install(this.plugins.FormActions.default());
     this.install(this.plugins.FolderView());

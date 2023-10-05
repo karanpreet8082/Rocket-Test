@@ -20,7 +20,7 @@ define([
         var Aircraft_42_objectProvider = {
             get: function (identifier) {
                 return getAircraft_Dictionary().then(function (dictionary) {
-                    //console.log("Aircraft_42-dictionary-plugin.js: identifier.key = " + identifier.key);
+                    console.log("Aircraft_42-dictionary-plugin.js: identifier.key = " + identifier.key);
                     if (identifier.key === 'Aircraft_42') {
                         return {
                             identifier: identifier,
@@ -47,10 +47,7 @@ define([
             }
         };
 
-        // The composition of a domain object is the list of objects it contains, as shown (for example) in the tree for browsing.
-        // Can be used to populate a hierarchy under a custom root-level object based on the contents of a telemetry dictionary.
-        // "appliesTo"  returns a boolean value indicating whether this composition provider applies to the given object
-        // "load" returns an array of Identifier objects (like the channels this telemetry stream offers)
+        // provides structure (for showing children)
         var Aircraft_42_compositionProvider = {
             appliesTo: function (domainObject) {
                 return domainObject.identifier.namespace === 'Aircraft_42.taxonomy'
@@ -69,6 +66,7 @@ define([
             }
         };
 
+        // To add a new root : initialise a new root
         return function install(openmct) {
             // The addRoot function takes an "object identifier" as an argument
             openmct.objects.addRoot({
