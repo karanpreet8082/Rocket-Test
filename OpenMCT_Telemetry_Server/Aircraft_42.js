@@ -1,4 +1,4 @@
-// telemetry source object for the aircraft_42
+// telemetry source object for the aircraft
 
 const dgram = require('dgram');
 const server = dgram.createSocket('udp4');
@@ -7,12 +7,9 @@ const fs = require('fs');
 
 function aircraft_42() {
 
-	
-	// Initialize working Parameters and Object
 
 	// read the keys from dictionary
 	let rawDict = fs.readFileSync('../openmct/src/dictionary/json/Aircraft_dictionary.json')
-	// let rawDict = fs.readFileSync('../openmct/example/aircraft_42/aircraft_42dictionary.json')
 	let dict = JSON.parse(rawDict)
 	console.log(dict.measurements.map(obj => obj.key))
 
@@ -20,37 +17,27 @@ function aircraft_42() {
 	(dict.measurements.map(obj => obj.key)).forEach(function (k) {
 		this.state[k] = 0;
 	}, this);
-	//console.log(this.state)
 
-    this.history = {}; //history object
+    this.history = {};
     this.listeners = [];
-	this.data = []; // temporar data array
-	this.continousLogging = false; //whether continous logging is used
+	this.data = [];
+	this.continousLogging = false;
 	this.FileTimestamp = '';
 
-	// keys initialized in the history object
 	Object.keys(this.state).forEach(function (k) {
         this.history[k] = [];
 	}, this);
 
-	// to notify telemetry server interval based (STFE) uncomment here
     setInterval(function () {
         this.generateIntervalTelemetry();
-    }.bind(this), 100); //z.B. 100ms according to SFTE
+    }.bind(this), 100);
 
-    var count = 0 //for calculations
-	var initGPSheight = 0; //for calculations
+    var count = 0
+	var initGPSheight = 0;
 
-	//what to do, when a message from the UDP Port arrives
     server.on('message', (msg, rinfo) => {
-		//parse the data (expected: key, data, timestamp in seconds)
 		this.data = `${msg}`.split(',');
 		
-		// Check server message
-		//console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`)
-        //console.log(`server got: ${this.data[8]} from ${rinfo.address}:${rinfo.port}`)
-		
-		//Save the data to the state array
 		this.state[this.data[0]] = this.data[1];
 		this.state['Time.stamp'] = Math.round(this.data[2]*1000); //convert python timestamp[s] to JS timestamp [ms]
 		
@@ -81,13 +68,11 @@ function aircraft_42() {
 		// Artificial timestamp (if no timestamp is sent)
 		//var timestamp= Date.now();
 
-		// built message
 		var message = { timestamp: timestamp, value: this.state[this.data[0]], id: this.data[0]};
 			try{ // store in history
 				this.history[this.data[0]].push(message);
 				console.log(this.history[this.data[0]])
 				
-				// if continous logging is activated, append message to log file
 				if(this.continousLogging){					
 		
 					//Using Promises for less interrupting the main loop
@@ -119,10 +104,10 @@ function aircraft_42() {
 		
 	});
 
-	// port specified in the associated python script
+	// port : python script
 	server.bind(50015);
 
-    console.log("aircraft_42 initialized!!!!");
+    console.log("aircraft_42 initialized!! yeeaaahhhhhh !!");
 };
 
 

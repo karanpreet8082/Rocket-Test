@@ -7,10 +7,6 @@ const fs = require('fs');
 
 function Dg800() {
 
-	
-	// Initialize working Parameters and Object
-
-	// read the keys from dictionary
 	let rawDict = fs.readFileSync('../openmct/example/DG800/DG800dictionary.json')
 	let dict = JSON.parse(rawDict)
 	//console.log(dict.measurements.map(obj => obj.key))
@@ -19,20 +15,17 @@ function Dg800() {
 	(dict.measurements.map(obj => obj.key)).forEach(function (k) {
 		this.state[k] = 0;
 	}, this);
-	//console.log(this.state)
 
-    this.history = {}; //history object
+    this.history = {};
     this.listeners = [];
-	this.data = []; // temporar data array
-	this.continousLogging = false; //whether continous logging is used
+	this.data = [];
+	this.continousLogging = false;
 	this.FileTimestamp = '';
 
-	// keys initialized in the history object
 	Object.keys(this.state).forEach(function (k) {
         this.history[k] = [];
 	}, this);
 
-	// to notify telemetry server interval based (STFE) uncomment here
     setInterval(function () {
         this.generateIntervalTelemetry();
     }.bind(this), 100); //z.B. 100ms according to SFTE
@@ -42,20 +35,11 @@ function Dg800() {
 
 	//what to do, when a message from the UDP Port arrives
     server.on('message', (msg, rinfo) => {
-		//parse the data
 		this.data = `${msg}`.split(',');
 		
-		// Check server message
-		//console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`)
-        //console.log(`server got: ${this.data[8]} from ${rinfo.address}:${rinfo.port}`)
-		
-		//Save the data to the state array
 		this.state[this.data[0]] = this.data[1];
 		this.state['Time.stamp'] = Math.round(this.data[2]*1000); //convert python timestamp[s] to JS timestamp [ms]
 		
-		//console.log(Date.now()-this.state['Time.stamp']) //check lag incomming
-		//console.log(this.state['Time.stamp']) //check Timestamp
-		//console.log(this.state[this.data[0]]) //check paylaod
 		
 		//CALCULATIONS
 

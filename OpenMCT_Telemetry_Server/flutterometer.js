@@ -15,16 +15,6 @@ function Flutterometer() {
 	// read the keys from dictionary
 	let rawDict = fs.readFileSync('../openmct/example/Flutterometer/Flutterometerdictionary.json')
 	let dict = JSON.parse(rawDict)
-	//console.log(dict.measurements.map(obj => obj.key))
-
-    // old initialisation of keys, new one not yet testet with live telemetry
-    // for (var i = 0; i <= this.numberIds; ++i){
-    //     this.state[`id${i}.Time`] = Date.now();
-    //     this.state[`id${i}.Freq`] = 0;
-    //     this.state[`id${i}.Damp`] = 0;
-        
-    // }
-    //console.log(this.state['id3.Time'])
 
     this.state={};
 	(dict.measurements.map(obj => obj.key)).forEach(function (k) {
@@ -61,26 +51,6 @@ function Flutterometer() {
         this.state[this.idString + ".Freq"] = this.data[1];
         this.state[this.idString + ".Damp"] = this.data[2];
         this.state[this.idString + ".Time"] = this.data[3];
-
-        
-		//console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`)
-        //console.log(`server got: ${this.data[8]} from ${rinfo.address}:${rinfo.port}`)
-        
-        // old implementation without keys
-        // this.count = 0;
-        // for (var i = 1; i <= this.numberIds; ++i){
-        //     this.state[`id${i}.Time`] = this.data[this.count];
-        //     this.state[`id${i}.Freq`] = this.data[this.count+1];
-        //     this.state[`id${i}.Damp`] = this.data[this.count+2];
-        //     this.count = this.count + 4;
-        //console.log(this.state[this.idString +".Time"])
-            
-        // }
-        //// to notify telemetry server every time new data arrives in uncomment here
-		//this.generateRealtimeTelemetry();
-
-
-		//// Save History on every message, for high resolution
 		// Real Timestamp
 		var timestamp = this.state['Time.stamp'];
 		// Artificial timestamp (if no timestamp is sent)
