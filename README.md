@@ -4,6 +4,8 @@ Ground Control Software for Rocket
 Customizable mission control & telemetry monitoring systems.
 <br>
 
+<img width="1440" alt="Screenshot 2023-10-06 at 12 21 21 AM" src="https://github.com/karanpreet8082/Roco-Poco/assets/77240047/a580f4ce-a42f-4ac2-9073-a0f6f1a72bef">
+
 <br>
 How to Test : 
 <br>
