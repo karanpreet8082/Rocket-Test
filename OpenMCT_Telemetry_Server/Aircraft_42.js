@@ -11,7 +11,7 @@ function aircraft_42() {
 	// read the keys from dictionary
 	let rawDict = fs.readFileSync('../openmct/src/dictionary/json/Aircraft_dictionary.json')
 	let dict = JSON.parse(rawDict)
-	console.log(dict.measurements.map(obj => obj.key))
+	// console.log(dict.measurements.map(obj => obj.key))
 
 	this.state={};
 	(dict.measurements.map(obj => obj.key)).forEach(function (k) {
@@ -71,7 +71,7 @@ function aircraft_42() {
 		var message = { timestamp: timestamp, value: this.state[this.data[0]], id: this.data[0]};
 			try{ // store in history
 				this.history[this.data[0]].push(message);
-				console.log(this.history[this.data[0]])
+				// console.log(this.history[this.data[0]])  // Check for data receive
 				
 				if(this.continousLogging){					
 		

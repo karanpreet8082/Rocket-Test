@@ -31,8 +31,8 @@ function HistoryServer(telemetrySource) {
         res.status(200).end()
     })
     return server;
-    //server.listen(port);
-    //console.log('History server now running at http://localhost:' + port);
+    // server.listen(port);
+    // console.log('History server now running at http://localhost:' + port);
 }
 
 module.exports = HistoryServer;
