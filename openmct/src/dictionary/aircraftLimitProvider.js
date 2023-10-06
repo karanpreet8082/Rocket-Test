@@ -30,16 +30,16 @@
             
         },
         RED_LOW = {
-            'airspeedVal': 20,
-            'groundspeedVal': 20
+            'airspeedVal_changed': 20,
+            'groundspeedVal_changed': 20
         },
 
         YELLOW_HIGH = {
             
         },
         YELLOW_LOW = {
-            'airspeedVal': 21,
-            'groundspeedVal': 21
+            'airspeedVal_changed': 21,
+            'groundspeedVal_changed': 21
         },
         
         LIMITS = {
