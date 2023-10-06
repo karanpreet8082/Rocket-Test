@@ -6,9 +6,13 @@ Customizable mission control & telemetry monitoring systems.
 
 <br>
 How to Test : 
+<br>
 1. Run the OpenMct Server
+<br>
 2. Run the Telemetry Server
+<br>
 3. Run the Python Script
+<br>
 4. Project is Running at : http://localhost:8080/
 <br>
 
